@@ -1,23 +1,57 @@
-// swift-tools-version: 5.10
-// The swift-tools-version declares the minimum version of Swift required to build this package.
-
+// swift-tools-version: 5.5
 import PackageDescription
 
 let package = Package(
     name: "CompactKit",
+    platforms: [.iOS(.v15)],
     products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
-        .library(
-            name: "CompactKit",
-            targets: ["CompactKit"]),
+        .library(name: "FoundationExtension", targets: ["FoundationExtension"]),
+        .library(name: "SwiftUIExtension", targets: ["SwiftUIExtension"]),
+        .library(name: "UIKitExtension", targets: ["UIKitExtension"]),
+        .library(name: "Provider", targets: ["Provider"]),
+        .library(name: "Provider+AsyncAwait", targets: ["Provider+AsyncAwait"]),
+        .library(name: "Provider+Rx", targets: ["Provider+Rx"]),
+    ],
+    dependencies: [
+        .package(url: "https://github.com/ReactiveX/RxSwift.git", .upToNextMajor(from: "6.0.0")),
+        .package(url: "https://github.com/Moya/Moya.git", .upToNextMajor(from: "15.0.0"))
     ],
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "CompactKit"),
-        .testTarget(
-            name: "CompactKitTests",
-            dependencies: ["CompactKit"]),
+            name: "FoundationExtension",
+            path: "Sources/Extension/Foundation"
+        ),
+        .target(
+            name: "SwiftUIExtension",
+            path: "Sources/Extension/SwiftUI"
+        ),
+        .target(
+            name: "UIKitExtension",
+            path: "Sources/Extension/UIKit"
+        ),
+        .target(
+            name: "Provider",
+            dependencies: [
+                .product(name: "Moya", package: "Moya"),
+                "FoundationExtension"
+            ]
+        ),
+        .target(
+            name: "Provider+AsyncAwait",
+            dependencies: ["Provider"]
+        ),
+        .target(
+            name: "Provider+Rx",
+            dependencies: [
+                "Provider",
+                "UIKitExtension",
+                .product(name: "RxSwift", package: "RxSwift"),
+                .product(name: "RxMoya", package: "Moya")
+            ]
+        )
+//        .testTarget(
+//            name: "CompactKitTests",
+//            dependencies: ["CompactKit"]
+//        ),
     ]
 )
