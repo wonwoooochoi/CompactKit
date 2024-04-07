@@ -8,8 +8,16 @@
 import Foundation
 import Moya
 
+public typealias TargetType = Moya.TargetType
+public typealias Method = Moya.Method
+public typealias Task = Moya.Task
+public typealias ParameterEncoding = Moya.ParameterEncoding
+public typealias JSONEncoding = Moya.JSONEncoding
+public typealias URLEncoding = Moya.URLEncoding
+
 final public class Provider<T: TargetType> {
     public let moyaProvider = MoyaProvider<T>()
+    public init() {}
 }
 
 public extension Provider {
