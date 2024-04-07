@@ -78,15 +78,26 @@ public extension Provider {
 }
 
 
-public struct ProviderResponse: Decodable {
+public struct ProviderResponse {
     public let statusCode: Int
     public let data: Data
     public let dataString: String
+    
+    public init(statusCode: Int, data: Data, dataString: String) {
+        self.statusCode = statusCode
+        self.data = data
+        self.dataString = dataString
+    }
 }
 
-public struct ProviderModelResponse<M: Decodable>: Decodable {
+public struct ProviderModelResponse<M: Decodable> {
     public let statusCode: Int
     public let model: M
+    
+    public init(statusCode: Int, model: M) {
+        self.statusCode = statusCode
+        self.model = model
+    }
 }
 
 public struct ProviderPrint {
