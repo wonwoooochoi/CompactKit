@@ -79,14 +79,14 @@ public extension Provider {
 
 
 public struct ProviderResponse: Decodable {
-    let statusCode: Int
-    let data: Data
-    let dataString: String
+    public let statusCode: Int
+    public let data: Data
+    public let dataString: String
 }
 
 public struct ProviderModelResponse<M: Decodable>: Decodable {
-    let statusCode: Int
-    let model: M
+    public let statusCode: Int
+    public let model: M
 }
 
 public struct ProviderPrint {
