@@ -123,11 +123,10 @@ public struct ProviderPrint {
         }
         
         if case .requestParameters(let parameters, _) = target.task,
+           !parameters.isEmpty,
            let data = try? JSONSerialization.data(withJSONObject: parameters, options: [.prettyPrinted]),
            let string = String(data: data, encoding: .utf8) {
             description += "\n\(string)"
-        } else {
-            description += "\n\(target.task)"
         }
         
         print(description)
@@ -148,11 +147,11 @@ public struct ProviderPrint {
         }
         
         if let object = try? JSONSerialization.jsonObject(with: data, options: []),
-           let data = try? JSONSerialization.data(withJSONObject: object, options: [.prettyPrinted]),
-           let string = String(data: data, encoding: .utf8) {
+           let objectData = try? JSONSerialization.data(withJSONObject: object, options: [.prettyPrinted]),
+           let string = String(data: objectData, encoding: .utf8) {
             description += "\n\(string)"
         } else {
-            description += "\n\(target.task)"
+            description += "\n\(String(data: data, encoding: .utf8) ?? "empty data.")"
         }
         
         print(description)
