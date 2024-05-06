@@ -8,18 +8,21 @@
 import UIKit
 
 public extension UIApplication {
-    var activeConnectedScenes: [UIWindowScene] {
+    var connectedWindowScenes: [UIWindowScene] {
         UIApplication.shared.connectedScenes
-            .filter { $0.activationState == .foregroundActive }
             .compactMap { $0 as? UIWindowScene }
     }
     
-    var activeWindow: UIWindow? {
-        activeConnectedScenes.first?.windows
+    var window: UIWindow? {
+        connectedWindowScenes.first?.windows
             .first { $0.isKeyWindow }
     }
     
+    var screenSize: CGSize {
+        connectedWindowScenes.first?.screen.bounds.size ?? .zero
+    }
+    
     var topMostViewController: UIViewController? {
-        activeWindow?.rootViewController?.topMostViewController
+        window?.rootViewController?.topMostViewController
     }
 }
