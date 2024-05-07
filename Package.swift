@@ -11,10 +11,15 @@ let package = Package(
         .library(name: "Provider", targets: ["Provider"]),
         .library(name: "Provider+AsyncAwait", targets: ["Provider+AsyncAwait"]),
         .library(name: "Provider+Rx", targets: ["Provider+Rx"]),
+        .library(name: "SwiftUIView", targets: ["SwiftUIView"]),
+        .library(name: "UIKitView", targets: ["UIKitView"])
     ],
     dependencies: [
-        .package(url: "https://github.com/ReactiveX/RxSwift.git", .upToNextMajor(from: "6.0.0")),
-        .package(url: "https://github.com/Moya/Moya.git", .upToNextMajor(from: "15.0.0"))
+        .package(url: "https://github.com/ReactiveX/RxSwift.git", .upToNextMajor(from: "6.7.1")),
+        .package(url: "https://github.com/Moya/Moya.git", .upToNextMajor(from: "15.0.3")),
+        .package(url: "https://github.com/googleads/swift-package-manager-google-mobile-ads.git", .upToNextMajor(from: "11.4.0")),
+        .package(url: "https://github.com/firebase/firebase-ios-sdk.git", .upToNextMajor(from: "10.25.0")),
+        .package(url: "https://github.com/onevcat/Kingfisher.git", .upToNextMajor(from: "7.11.0"))
     ],
     targets: [
         .target(
@@ -32,13 +37,15 @@ let package = Package(
         .target(
             name: "Provider",
             dependencies: [
-                .product(name: "Moya", package: "Moya"),
-                "FoundationExtension"
+                "FoundationExtension",
+                .product(name: "Moya", package: "Moya")
             ]
         ),
         .target(
             name: "Provider+AsyncAwait",
-            dependencies: ["Provider"]
+            dependencies: [
+                "Provider"
+            ]
         ),
         .target(
             name: "Provider+Rx",
@@ -48,6 +55,26 @@ let package = Package(
                 .product(name: "RxSwift", package: "RxSwift"),
                 .product(name: "RxMoya", package: "Moya")
             ]
+        ),
+        .target(
+            name: "SwiftUIView",
+            dependencies: [
+                "UIKitExtension",
+                .product(name: "GoogleMobileAds", package: "swift-package-manager-google-mobile-ads"),
+                .product(name: "FirebaseCrashlytics", package: "firebase-ios-sdk"),
+                .product(name: "Kingfisher", package: "Kingfisher")
+            ],
+            path: "Sources/View/SwiftUI"
+        ),
+        .target(
+            name: "UIKitView",
+            dependencies: [
+                .product(name: "GoogleMobileAds", package: "swift-package-manager-google-mobile-ads"),
+                .product(name: "FirebaseCrashlytics", package: "firebase-ios-sdk"),
+                .product(name: "RxSwift", package: "RxSwift"),
+                .product(name: "RxCocoa", package: "RxSwift")
+            ],
+            path: "Sources/View/UIKit"
         )
 //        .testTarget(
 //            name: "CompactKitTests",
