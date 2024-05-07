@@ -9,9 +9,14 @@ import Foundation
 
 @propertyWrapper
 public struct UserDefaultsWrapper<Value> {
-    public let key: String
-    public let defaultValue: Value
+    private let key: String
+    private let defaultValue: Value
     private let userDefaults = UserDefaults.standard
+    
+    public init(key: String, defaultValue: Value) {
+        self.key = key
+        self.defaultValue = defaultValue
+    }
     
     public var wrappedValue: Value {
         get {
@@ -27,8 +32,12 @@ public struct UserDefaultsWrapper<Value> {
 
 @propertyWrapper
 public struct UserDefaultsObjectWrapper<Object: Codable> {
-    public let key: String
+    private let key: String
     private let userDefaults = UserDefaults.standard
+    
+    public init(key: String) {
+        self.key = key
+    }
     
     public var wrappedValue: Object? {
         get {
@@ -49,9 +58,14 @@ public struct UserDefaultsObjectWrapper<Object: Codable> {
 
 @propertyWrapper
 public struct UserDefaultsEnumWrapper<Value: RawRepresentable> {
-    public let key: String
-    public let defaultValue: Value
+    private let key: String
+    private let defaultValue: Value
     private let userDefaults = UserDefaults.standard
+    
+    public init(key: String, defaultValue: Value) {
+        self.key = key
+        self.defaultValue = defaultValue
+    }
     
     public var wrappedValue: Value {
         get {

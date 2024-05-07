@@ -11,7 +11,11 @@ import FirebaseCrashlytics
 import UIKitExtension
 
 public struct BannerUI: View {
-    public let adUnitID: String
+    private let adUnitID: String
+    
+    public init(adUnitID: String) {
+        self.adUnitID = adUnitID
+    }
     
     public var body: some View {
         HStack(spacing: 0) {
