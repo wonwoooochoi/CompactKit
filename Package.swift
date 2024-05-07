@@ -39,13 +39,15 @@ let package = Package(
             dependencies: [
                 "FoundationExtension",
                 .product(name: "Moya", package: "Moya")
-            ]
+            ],
+            path: "Sources/Provider/Base"
         ),
         .target(
             name: "Provider+AsyncAwait",
             dependencies: [
                 "Provider"
-            ]
+            ],
+            path: "Sources/Provider/AsyncAwait"
         ),
         .target(
             name: "Provider+Rx",
@@ -54,7 +56,8 @@ let package = Package(
                 "UIKitExtension",
                 .product(name: "RxSwift", package: "RxSwift"),
                 .product(name: "RxMoya", package: "Moya")
-            ]
+            ],
+            path: "Sources/Provider/Rx"
         ),
         .target(
             name: "SwiftUIView",
