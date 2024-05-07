@@ -12,7 +12,8 @@ let package = Package(
         .library(name: "Provider+AsyncAwait", targets: ["Provider+AsyncAwait"]),
         .library(name: "Provider+Rx", targets: ["Provider+Rx"]),
         .library(name: "SwiftUIView", targets: ["SwiftUIView"]),
-        .library(name: "UIKitView", targets: ["UIKitView"])
+        .library(name: "UIKitView", targets: ["UIKitView"]),
+        .library(name: "CustomView", targets: ["CustomView"])
     ],
     dependencies: [
         .package(url: "https://github.com/ReactiveX/RxSwift.git", .upToNextMajor(from: "6.7.1")),
@@ -78,6 +79,13 @@ let package = Package(
                 .product(name: "RxCocoa", package: "RxSwift")
             ],
             path: "Sources/View/UIKit"
+        ),
+        .target(
+            name: "CustomView",
+            dependencies: [
+                "SwiftUIExtension"
+            ],
+            path: "Sources/View/Custom"
         )
 //        .testTarget(
 //            name: "CompactKitTests",
